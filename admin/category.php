@@ -11,27 +11,35 @@ if ($_SESSION['role'] != 1) {
   header('Location: login.php');
 }
 
-if ($_POST['search']) {
-  setcookie('search',$_POST['search'], time() + (86400 * 30), "/");
-}else{
-  if (empty($_GET['pageno'])) {
-    unset($_COOKIE['search']); 
-    setcookie('search', null, -1, '/'); 
-  }
-}
+
 ?>
 
 
 <?php include('header.php'); ?>
+  <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h3 class="m-0 text-">Category Listings
+			  </h3>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+             <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>-->
+				<a href="cat-add.php" type="button" class="btn btn-success"><i class="fa fa-plus">   </i> New Category</a>
+            </ol>
+          </div> <!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Category Listings</h3>
-              </div>
+              
               <?php
                 if (!empty($_GET['pageno'])) {
                   $pageno = $_GET['pageno'];
@@ -68,10 +76,7 @@ if ($_POST['search']) {
               ?>
               <!-- /.card-header -->
               <div class="card-body">
-                <div>
-                  <a href="cat-add.php" type="button" class="btn btn-success">New Category</a>
-                </div>
-                <br>
+               
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -93,10 +98,10 @@ if ($_POST['search']) {
                           <td>
                             <div class="btn-group">
                               <div class="container">
-                                <a href="edit.php?id=<?php echo $value['id']?>" type="button" class="btn btn-warning">Edit</a>
+                                <a href="cat-edit.php?id=<?php echo $value['id']?>" type="button" class="btn btn-warning">Edit</a>
                               </div>
                               <div class="container">
-                                <a href="delete.php?id=<?php echo $value['id']?>"
+                                <a href="cat-delete.php?id=<?php echo $value['id']?>"
                                   onclick="return confirm('Are you sure you want to delete this item')"
                                   type="button" class="btn btn-danger">Delete</a>
                               </div>

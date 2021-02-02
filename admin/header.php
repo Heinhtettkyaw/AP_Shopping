@@ -37,7 +37,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $page = end($link_array);
     ?>
 
-    <form class="form-inline ml-3" method="post" action="<?php echo $page == 'index.php' ? 'index.php':'user_list.php';?>">
+    <form class="form-inline ml-3" method="post"
+		  <?php if($page== 'index.php'): ?>
+		  action="index.php"
+		  <?php elseif($page== 'category.php'): ?>
+		  action="category.php"
+		  <?php elseif($page== 'users.php'): ?>
+		  action="users.php"
+		  <?php endif; ?>
+		  >
       <input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
 
       <div class="input-group input-group-sm">
@@ -82,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="/admin/index.php" class="nav-link">
+            <a href="../admin/index.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Product
@@ -90,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="/admin/user_list.php" class="nav-link">
+            <a href="../admin/category.php" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
                 Category
@@ -98,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="/admin/user_list.php" class="nav-link">
+            <a href="../admin/users.php" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 User
@@ -115,7 +123,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-
-    </div>
+    
     <!-- /.content-header -->

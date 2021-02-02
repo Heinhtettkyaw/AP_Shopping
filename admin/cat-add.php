@@ -8,19 +8,21 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 }
 if ($_SESSION['role'] != 1) {
   header('Location: login.php');
-}
+}     
 
-if ($_POST) {
-    if (empty($_POST['title']) || empty($_POST['content']) || ) {
-        if (empty($_POST['title'])) {
+if ($_POST){
+	
+	 if (empty($_POST['description']) || empty($_POST['name']))  {
+        if (empty($_POST['name'])) {
           $titleError = 'Name cannot be null';
         }
-        if (empty($_POST['content'])) {
+        if (empty($_POST['description'])) {
           $contentError = 'Description cannot be null';
         }
        
-      }else{
-      $name = $_POST['title'];
+      }else
+		{
+      $name = $_POST['name'];
       $description = $_POST['description'];
     
 
@@ -29,10 +31,12 @@ if ($_POST) {
           array(':name'=>$name,':description'=>$description)
       );
       if ($result) {
-        echo "<script>alert('Successfully added');window.location.href='index.php';</script>";
+        echo "<script>alert('Successfully added');window.location.href='category.php';</script>";
       }
       }
 }
+   
+
 
 
 ?>
@@ -45,8 +49,11 @@ if ($_POST) {
         <div class="row">
           <div class="col-md-12">
             <div class="card">
+				 <div class="card-header">
+                <h3 class="card-title">Description</h3>
+              </div>
               <div class="card-body">
-                <form class="" action="category_add.php" method="post" enctype="multipart/form-data">
+                <form class="" action="cat-add.php" method="post" enctype="multipart/form-data">
                   <input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
                   <div class="form-group">
                     <label for="">Name</label><p style="color:red"><?php echo empty($titleError) ? '' : '*'.$titleError; ?></p>

@@ -11,14 +11,7 @@ if ($_SESSION['role'] != 1) {
   header('Location: login.php');
 }
 
-if ($_POST['search']) {
-  setcookie('search',$_POST['search'], time() + (86400 * 30), "/");
-}else{
-  if (empty($_GET['pageno'])) {
-    unset($_COOKIE['search']); 
-    setcookie('search', null, -1, '/'); 
-  }
-}
+
 ?>
 
 
