@@ -2,31 +2,63 @@
 session_start();
 require 'config/config.php';
 require 'config/common.php';
-
 if ($_POST){
-	$email= $_POST['email'];
-	$password= $_POST['password'];
+  if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['phone']) || empty($_POST['address']) ||
+   empty($_POST['password']) || strlen($_POST['password'])<5){
+     if (empty($_POST['name'])) {
+       $nameError='Name is required';
+     }
+     if (empty($_POST['email'])) {
+       $emailError='Email is required';
+     }
+     if (empty($_POST['password'])) {
+       $passwordError='Password is required';
+     }
+     if (empty($_POST['phone'])) {
+       $phoneError='Phone is required';
+     }
+     if (empty($_POST['address'])) {
+       $addressError='Address is required';
+     }
+     if(strlen($_POST['password'])<5){
+       $passwordError='Password must be at least 5 characters';
+     }
+   }
 
-	$stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
-	
-	$stmt->bindValue(':email',$email);
-	$stmt->execute();
-	$user = $stmt->fetch(PDO::FETCH_ASSOC);
+else {
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+  $phone = $_POST['phone'];
+  $address = $_POST['address'];
 
-	if($user){
-		if(password_verify($password,$user['password'])){
-            $_SESSION['user_id']=$user['id'];
-			$_SESSION['username']=$user['name'];
-			$_SESSION['logged_in'] = time();
-			header('Location : index.php');
-		}
-	}
-		echo "<script>alert('Incorrect Credentials');</script>";
-	
+  $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
+  $result = $stmt->execute([':email'=>$email]);
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($user){
+    echo "<script>alert ('This email already exit');</script>";
+
+  }else{
+    $stmt=$pdo->prepare("INSERT INTO users (name,email,password,phone,address) VALUES (:name,:email,:password,:phone,:address)");
+    $result=$stmt->execute(array(
+      ':name'=>$name,
+	  ':email'=>$email,
+	  ':password'=>$password,
+      ':phone'=>$phone,
+      ':address'=>$address
+     
+    ));
+    if ($result){
+      echo "<script>alert ('Registeration Success!! You can now login');window.location.href='login.php';</script>";
+
+    }
+  }
+
+}
 }
 ?>
 <!DOCTYPE html>
-<html >
+<html lang="zxx" class="no-js">
 
 <head>
 	<!-- Mobile Specific Meta -->
@@ -101,10 +133,10 @@ if ($_POST){
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Login/Register</h1>
+					<h1>Register</h1>
 					<nav class="d-flex align-items-center">
 						<a href="index.php">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="login.php">Login</a>
+						<a href="register.php">Register</a>
 					</nav>
 				</div>
 			</div>
@@ -120,32 +152,57 @@ if ($_POST){
 					<div class="login_box_img">
 						<img class="img-fluid" src="img/login.jpg" alt="">
 						<div class="hover">
-							<h4>New to our website?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="primary-btn" href="register.php">Create an Account</a>
+							<h4>Already have an Account?</h4>
+							<p>There are advances being made in science and technology everyday, and this's a good example</p>
+							<a class="primary-btn" href="login.php">Log in</a>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>Log in to enter</h3><br />
-						<form class="row login_form" action="login.php" method="post" id="contactForm" novalidate="novalidate">
-							<input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
+						<h3>CREATE YOUR ACCOUNT</h3>
+						<form class="row login_form" action="register.php" method="post" id="contactForm" novalidate="novalidate">
+              <input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
 
-							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
-								<br />
+              <div class="col-md-12 form-group">
+								<input type="name" class="form-control" id="name" name="name" placeholder="Name"
+                style="<?php echo empty($nameError) ? '' : 'border : 1px solid red';?>"
+                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'">
+							</div>
+              <div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                style="<?php echo empty($emailError) ? '' : 'border : 1px solid red';?>"
+                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+							</div>
+              <div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                style="<?php echo empty($passwordError) ? '' : 'border : 1px solid red';?>"
+                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                 <p style="color :red;">
+                   <?php echo empty($passwordError)? '' : $passwordError; ?>
+                 </p>
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-								<br />
+								<input type="phone" class="form-control" id="phone" name="phone" placeholder="Phone Number"
+                style="<?php echo empty($phoneError) ? '' : 'border : 1px solid red';?>"
+                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
 							</div>
+            	<div class="col-md-12 form-group">
+                <input type="text" class="form-control" id="address" name="address" placeholder="Address"
+                style="<?php echo empty($addressError) ? '' : 'border : 1px solid red';?>"
+                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'">
+<br />
+              </div>
+
 
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Log In</button>
+								<button type="submit" value="submit" class="primary-btn">Sign Up</button>
 
 							</div>
+							<div class="col-md-12 form-group">
+<br />
 
+							</div>
 						</form>
 					</div>
 				</div>
