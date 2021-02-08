@@ -3,26 +3,26 @@ session_start();
 require 'config/config.php';
 require 'config/common.php';
 
-if ($_POST){
-	$email= $_POST['email'];
-	$password= $_POST['password'];
+if ($_POST) {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-	$stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
-	
-	$stmt->bindValue(':email',$email);
-	$stmt->execute();
-	$user = $stmt->fetch(PDO::FETCH_ASSOC);
+  $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
 
-	if($user){
-		if(password_verify($password,$user['password'])){
-            $_SESSION['user_id']=$user['id'];
-			$_SESSION['username']=$user['name'];
-			$_SESSION['logged_in'] = time();
-			header('Location : index.php');
-		}
-	}
-		echo "<script>alert('Incorrect Credentials');</script>";
-	
+  $stmt->bindValue(':email',$email);
+  $stmt->execute();
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  if ($user) {
+    if (password_verify($password,$user['password'])) {
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['username'] = $user['name'];
+      $_SESSION['logged_in'] = time();
+
+      header('Location: index.php');
+    }
+  }
+  echo "<script>alert('Incorrect credentials')</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -129,7 +129,7 @@ if ($_POST){
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Log in to enter</h3><br />
-						<form class="row login_form" action="login.php" method="post" id="contactForm" novalidate="novalidate">
+						<form class="row login_form" action="login.php" method="post" id="contactForm">
 							<input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
 
 							<div class="col-md-12 form-group">
@@ -142,7 +142,7 @@ if ($_POST){
 							</div>
 
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Log In</button>
+								<input type="submit" value="submit" class="primary-btn">
 
 							</div>
 
