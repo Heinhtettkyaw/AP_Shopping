@@ -9,7 +9,7 @@ if($_SESSION['role']!=1){
 }
  if($_POST){
 	 if(empty($_POST['name']) ||  empty($_POST['email']) || empty($_POST['password']) || strlen($_POST['password'])<6 || empty($_POST['phone']) || empty($_POST['address'])){
-		
+
 		if(empty($_POST['name'])){
 			$nameError='Title cannot be null';
 		}
@@ -27,27 +27,27 @@ if($_SESSION['role']!=1){
 		 if(empty($_POST['address'])){
 			$addressError='Address cannot be null';
 		}
-		 
+
 	}else{
-		 
+
 	  $name= $_POST['name'];
 	  $password=password_hash( $_POST['password'],PASSWORD_DEFAULT);
 	  $email= $_POST['email'];
       $phone=$_POST['phone'];
 	  $address=$_POST['address'];
-		 
+
 	 if(empty($_POST['role'])){
 		 $role=0;
 	 }
 	 else{
 		 $role=1;
 	 }
-		 
+
 	$stmt= $pdo->prepare("SELECT * FROM users WHERE email=:email");
 	$stmt->bindValue(':email',$email);
 	$stmt->execute();
 	$user=$stmt->fetch(PDO::FETCH_ASSOC);
-		 
+
 	if($user){
 		echo "<script>alert('Email already registered')</script>";
 	}
@@ -62,14 +62,14 @@ if($_SESSION['role']!=1){
 			  ':address'=>$address,
 			  ':role'=>$role
 			 ));
-		
+
 		if($result){
 			echo  "<script>alert('Successfully registered, Please Login');window.location.href='users.php';</script>";
 		}
-		
+
 	}
 	}
-	 
+
  }
 ?>
  <?php include('header.php'); ?>
@@ -80,7 +80,7 @@ if($_SESSION['role']!=1){
       <div class="container-fluid">
         <div class="row">
          <div class="col-md-12">
-              <form action="user-add1.php" method="post">
+              <form action="user-add.php" method="post">
 			    <input type="hidden" name="_token" value="<?php echo $_SESSION['_token']; ?>">
 
                 <div class="form-group">
@@ -110,10 +110,10 @@ if($_SESSION['role']!=1){
                 <input type="submit" class="btn btn-success">
                 <a href="users.php" class="btn btn-warning">Back</a>
             </form>
-           
 
 
-           
+
+
           </div>
           <!-- /.col-md-6 -->
         </div>
