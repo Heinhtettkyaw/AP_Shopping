@@ -12,21 +12,21 @@ if($_SESSION['role']!=1){
 
 if($_POST){
 		if(empty($_POST['name']) ||  empty($_POST['description'])){
-		
+
 		if(empty($_POST['name'])){
 			$titleError='Name cannot be null';
 		}
 		if(empty($_POST['description'])){
 			$contentError='Description cannot be null';
 		}
-		
+
 	}else{
 	$id=$_POST['id'];
 	$name=$_POST['name'];
 	$description=$_POST['description'];
-	
-	
-	
+
+
+
 		$stmt=$pdo->prepare("UPDATE categories SET name=:name, description=:description WHERE id=:id");
 			 $result = $stmt->execute(
           array(':name'=>$name,':description'=>$description,':id'=>$id)
@@ -34,9 +34,9 @@ if($_POST){
 			if($result){
 			echo  "<script>alert('Updated Successfully');window.location.href='category.php';</script>";
 						}
-		
+
 		}
-	
+
 }
 
 
@@ -49,7 +49,7 @@ if($_POST){
       <div class="container-fluid">
         <div class="row">
          <div class="col-md-12">
-            
+
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Update your category </h3>
@@ -57,7 +57,7 @@ if($_POST){
               <!-- /.card-header -->
               <!-- form start -->
 				<div class="card card-body">
-				<?php 
+				<?php
 				$stmt=$pdo->prepare("SELECT * FROM categories WHERE id=".$_GET['id']);
 				$stmt->execute();
 				$result=$stmt->fetchAll();
@@ -75,12 +75,12 @@ if($_POST){
                     <label for="content">Description</label><p style="color: red"><?php echo empty($contentError)? '': '*'.$contentError; ?></p>
                     <input type="text" class="form-control" name="description" value="<?php echo escape($result[0]['description']); ?>">
                   </div>
-                 
+
 					<!--<div class="form-group">
 					<label for="image">Photo</label><br>
 					<input type="file" name="image" value="" required>
 					</div>-->
-                  
+
                 </div>
                 <!-- /.card-body -->
 
@@ -92,7 +92,7 @@ if($_POST){
 				</div>
             </div>
 
-            
+
             <!-- /.card -->
           </div>
           <!-- /.col-md-6 -->
@@ -105,34 +105,4 @@ if($_POST){
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
-  <div class="p-3">
-    <h5>Title</h5>
-    <p>Sidebar content</p>
-  </div>
-</aside>
-<!-- /.control-sidebar -->
-
-<!-- Main Footer -->
-<footer class="main-footer">
-  <!-- To the right -->
-  <div class="float-right d-none d-sm-inline">
-    <a href="logout.php" type="button" class="btn btn-default">Logout</a>
-  </div>
-  <!-- Default to the left -->
-  <strong>Copyright &copy; 2020 <a href="#">A Programmer</a>.</strong> All rights reserved.
-</footer>
-</div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-</body>
-</html>
+<?php include('footer.html'); ?>

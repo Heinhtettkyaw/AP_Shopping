@@ -32,7 +32,7 @@ if ($_POST) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Blog | Log in</title>
+  <title>AP Shopping | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,7 +50,7 @@ if ($_POST) {
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>AP Shop </b><br>Admin Panel</a>
+    <a href="login.php"><b>AP Shop </b><br>Admin Panel</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
