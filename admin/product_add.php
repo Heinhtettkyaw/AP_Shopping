@@ -66,7 +66,7 @@ if ($_POST){
                 )
           );
           if($result){
-            echo "<script>alert('Products must be added.'); window.location.href='index.php';</script>";
+            echo "<script>alert('New Products added.'); window.location.href='index.php';</script>";
           }
       }
     }
