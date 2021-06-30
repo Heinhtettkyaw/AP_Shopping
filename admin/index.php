@@ -47,12 +47,12 @@ if ($_SESSION['role'] != 1) {
       		}else
       		{
       				$searchKey=$_POST['search'];
-      				$stmt= $pdo->prepare("SELECT * FROM products WHERE title LIKE '%$searchKey%' ORDER BY id DESC");
+      				$stmt= $pdo->prepare("SELECT * FROM products WHERE name LIKE '%$searchKey%' ORDER BY id DESC");
       				$stmt->execute();
       				$rawResult= $stmt->fetchAll();
       				$total_pages= ceil(count($rawResult)/ $numOfrecs);
 
-      				$stmt= $pdo->prepare("SELECT * FROM products WHERE title LIKE '%$searchKey%' ORDER BY id DESC LIMIT $offset,$numOfrecs");
+      				$stmt= $pdo->prepare("SELECT * FROM products WHERE name LIKE '%$searchKey%' ORDER BY id DESC LIMIT $offset,$numOfrecs");
       				$stmt->execute();
       				$result= $stmt->fetchAll();
       		}

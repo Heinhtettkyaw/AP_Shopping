@@ -41,7 +41,7 @@ if($_SESSION['role']!=1){
          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
+                <h3 class="card-title">All Users</h3>
               </div>
 				<?php
 				if (!empty($_GET['pageno'])){
