@@ -1,4 +1,4 @@
-<?php include('header.html') ?>
+<?php include('header.php') ?>
 <!--================Single Product Area =================-->
 <div class="product_image_area">
   <div class="container">
@@ -50,12 +50,12 @@
 				<li class="nav-item">
 					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
 				</li>
-				
+
 				<li class="nav-item">
 					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 					 aria-selected="false">Comments</a>
 				</li>
-				
+
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -75,7 +75,7 @@
 						more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
 						streamlined plan of cooking that is more efficient for one person creating less</p>
 				</div>
-			
+
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
 						<div class="col-lg-6">
@@ -159,7 +159,7 @@
 						</div>
 					</div>
 				</div>
-			
+
 			</div>
 		</div>
 	</section> -->

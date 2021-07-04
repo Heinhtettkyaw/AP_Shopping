@@ -1,4 +1,18 @@
-<?php include('header.html') ?>
+<?php
+session_start();
+require 'config/config.php';
+require 'config/common.php';
+
+
+if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
+  header('Location: login.php');
+}
+
+
+
+?>
+
+<?php include('header.php') ?>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">

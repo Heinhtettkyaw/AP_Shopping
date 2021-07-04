@@ -20,6 +20,7 @@
 	<!--
             CSS
             ============================================= -->
+
 	<link rel="stylesheet" href="css/linearicons.css">
 	<link rel="stylesheet" href="css/owl.carousel.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -48,10 +49,17 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav navbar-right">
+
 							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
+
+							<li class="nav-item">
+							<a href="logout.php"><span class="fa fa-sign-out" style="color:red; "></span>	</a>
+				      </li>
+
 						</ul>
 					</div>
 				</div>
